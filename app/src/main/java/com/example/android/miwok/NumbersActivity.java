@@ -39,10 +39,7 @@ public class NumbersActivity extends AppCompatActivity {
         Log.v("NumbersActivity","Index"+" " + "+"+" "+ index);
         TextView wordView = new TextView(this);
         wordView.setText(words.get(index));
-
-//***************************************This is a problem
         rootView.addView(wordView);
-//***************************************
 
 
         index++;
