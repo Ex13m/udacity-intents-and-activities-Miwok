@@ -4,13 +4,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.example.android.miwok.R.id.rootView;
+
 
 public class NumbersActivity extends AppCompatActivity {
 
@@ -18,46 +20,44 @@ public class NumbersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ArrayList<String> words = new ArrayList<String>();
-
-        words.add(0,"one");
-        words.add(1,"two");
-        words.add(2,"tree");
-        words.add(3,"for");
-        words.add(4,"five");
-        words.add(5,"six");
-        words.add(6,"seven");
-        words.add(7,"eight");
-        words.add(8,"nine");
-        words.add(9,"ten");
+        setContentView(R.layout.word_list);
 
 
-        LinearLayout rootView = (LinearLayout)findViewById(R.id.rootView);
+        // Create a list of words
+        ArrayList<Word> words = new ArrayList<Word>();
 
-        int index=0;
-        Log.v("NumbersActivity","Index"+" " + "+"+" "+ index);
-        TextView wordView = new TextView(this);
-        wordView.setText(words.get(index));
-        rootView.addView(wordView);
+        words.add(new Word ("one","lutti"));
+        words.add(new Word ("rwo","otiiko"));
+        words.add(new Word ("tree","tolookosu"));
+        words.add(new Word ("for","oyyisa"));
+        words.add(new Word ("five","massokka"));
+        words.add(new Word ("six","temmokka"));
+        words.add(new Word ("seven","kenekaku"));
+        words.add(new Word ("eight","kawinta"));
+        words.add(new Word ("six","wo'e"));
+        words.add(new Word ("ten","na'aacha"));
+
+        // Create an {@link ArrayAdapter}, whose data source is a list of Strings. The
+        // adapter knows how to create layouts for each item in the list, using the
+        // simple_list_item_1.xml layout resource defined in the Android framework.
+        // This list item layout contains a single {@link TextView}, which the adapter will set to
+        // display a single word.
+       WordAdapter adapter = new WordAdapter(this,  words);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // activity_numbers.xml layout file.
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        // Make the {@link ListView} use the {@link ArrayAdapter} we created above, so that the
+        // {@link ListView} will display list items for each word in the list of words.
+        // Do this by calling the setAdapter method on the {@link ListView} object and pass in
+        // 1 argument, which is the {@link ArrayAdapter} with the variable name itemsAdapter.
+
+        assert listView != null;
+        listView.setAdapter(adapter);
 
 
-        index++;
-        Log.v("NumbersActivity","Index"+" " + "+"+" "+ index);
-        TextView wordView2 = new TextView(this);
-        wordView2.setText(words.get(index));
-        rootView.addView(wordView2);
-
-        index++;
-        Log.v("NumbersActivity","Index"+" " + "+"+" "+ index);
-        TextView wordView3 = new TextView(this);
-        wordView3.setText(words.get(index));
-        rootView.addView(wordView3);
-
-
-
-//        for (int i = 0; i < words.size(); i++) {
-//            Log.v("NumbersActivity","Word at index" + " " + i+" "+"="+" "+ words.get(i));
         }
 
 
